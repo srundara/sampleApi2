@@ -92,3 +92,29 @@ h1,h2,p,ul,h3{
   background-color: salmon;
   color: white;
 }
+.item-box .card{
+  height: 500px;
+  border-radius: 5px;
+}
+.item-box .card .card-header{
+  height: 300px;
+  padding: 0;
+  border: none;
+  /* border: 1px solid black; */
+}
+.item-box .card .card-body{
+  /* border-top: 1px solid; */
+  height: 100%;
+  padding: 0;
+  /* border: 1px solid black; */
+}
+.item-box .card .card-body p{
+  font-size: 14px;
+  text-align: center;
+  padding-inline: 5px;
+}
+.item-box .card .card-header img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
