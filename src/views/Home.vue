@@ -31,11 +31,11 @@ onMounted(() => {
                     <div class="box-text">
                         <h1>{{ item.name }}</h1>
                         <h2>${{ item.price }}</h2>
-                        <ul>
+                        <!-- <ul>
                             <li @click="setImg(i1,img)" :class="{'active':item.img==img}" v-for="(img,k) in item.imgList" :key="k">
                                 <img :src="img" alt="">
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
 
