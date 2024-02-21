@@ -2,23 +2,29 @@
 import axios from 'axios'
 import {ref,onMounted} from 'vue'
 const data = ref([])
+const s = ref(0)
+const e = ref(12)
 const getItem = () => {
-    let url = `https://la3la3.com/home/api/get-product.php?s=0&e=4`
+    let url = `https://la3la3.com/home/api/get-product.php?s=${s.value}&e=${e.value}`
     axios.get(url)
         .then(
         (rp) => {
             data.value = rp.data
+            // rp.data.array.forEach(element => {
+                
+            // });
             console.log(data)
         }
     )
 }
-const setImg = (i,img) => {
-    console.log(data.value[i])
-    data.value[i] = img
-}
 onMounted(() => {
     getItem()
 })
+const setImg = (i,img) => {
+    console.log(data.value[i])
+    data.value[i].img = img
+}
+
 </script>
 <template>
     <div class="container mt-3 mb-3">
@@ -31,14 +37,13 @@ onMounted(() => {
                     <div class="box-text">
                         <h1>{{ item.name }}</h1>
                         <h2>${{ item.price }}</h2>
-                        <!-- <ul>
+                        <ul>
                             <li @click="setImg(i1,img)" :class="{'active':item.img==img}" v-for="(img,k) in item.imgList" :key="k">
                                 <img :src="img" alt="">
                             </li>
-                        </ul> -->
+                        </ul>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
