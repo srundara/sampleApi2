@@ -45,10 +45,8 @@ const moreData = () => {
                     <div class="box-text">
                         <div class="row">
                             <h1>{{ item.name }}</h1>
-
                         </div>
-                        <div class="row">
-                            
+                        <div class="row">                            
                         </div>
                         <h2>${{ item.price }}</h2>
                         <ul>

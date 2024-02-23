@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted} from 'vue'
+import {ref, onMounted, } from 'vue'
 import {RouterLink,RouterView} from 'vue-router'
 import axios from 'axios'
 import { menuCategory } from '../data';
@@ -27,12 +27,12 @@ onMounted ( () => {
                 <h1 v-show="!isLoading">Loading</h1>
                 <ul v-show="isLoading">
                     <li>
-                        <RouterLink to="">
+                        <RouterLink to="/">
                             <i class="fa-solid fa-house"></i>
                         </RouterLink>
                     </li>
                     <li v-for="(item,i) in menuCategory" :key="i">
-                        <RouterLink to="">{{item.name}}</RouterLink>
+                        <RouterLink :to="{name:'item', params:{cid:item.id}}">{{item.name}}</RouterLink>
                     </li>
                 </ul>
             </div>

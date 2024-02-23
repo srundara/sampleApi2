@@ -213,3 +213,28 @@ object-fit: contain;
   background-repeat: no-repeat;
   background-size: 20%;
 }
+.left-menu ul{
+  background-color: chocolate;
+}
+.left-menu ul li{
+  color: white;
+}
+.left-menu ul li a{
+  display: flex;
+  padding: 10px;
+  color: white;
+  font-size: 14px;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.left-menu ul li a:hover{
+  background-color: salmon
+}
+.left-menu ul li .subMenu{
+  /* padding: 10px; */
+  width: 90%;
+  margin-left: 5%;
+  /* background-color: blue; */
+}
