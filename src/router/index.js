@@ -8,15 +8,27 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta:{
+        title:"Home"
+      }
     },
     {
       path:'/item/:cid',
       name:'item',
-      component:Item
+      component:Item,
+      meta:{
+        title:"Menu"
+      }
     }
     
   ]
 })
 
+router.beforeEach( (to , from , next) => {
+  console.log("From" , from.meta.title)
+  console.log("To" , to.meta.title)
+  document.title = to.meta.title
+  next();
+})
 export default router
