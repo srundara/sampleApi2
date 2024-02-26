@@ -7,6 +7,7 @@ const route = useRoute()
 const s = ref(0)
 const e = ref(3)
 const itemData = ref([])
+// const 
 const getSubCategory = () => {
     let url = `https://la3la3.com/home/api/get-sub-category.php?cate-id=${route.params.cid}`
     axios.get(url)
@@ -18,12 +19,12 @@ const getSubCategory = () => {
         )
 }
 const getItemByMenu = () => {
-    let url = `https://la3la3.com/home/api/get-product.php?cate-id=1&s=${s.value}&e=${e.value}`
+    let url = `https://la3la3.com/home/api/get-product.php?cate-id=${route.params.cid}&s=${s.value}&e=${e.value}`
     axios.get(url)
         .then(
             (rp) => {
-                console.log(rp.data)
-                itemData.value = rp.value
+                console.log("item",itemData.value)
+                itemData.value = rp.data
             }
         )
 }
