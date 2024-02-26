@@ -7,12 +7,13 @@ const route = useRoute()
 const s = ref(0)
 const e = ref(3)
 const itemData = ref([])
-// const 
+const isLoading = ref(true)
 const getSubCategory = () => {
     let url = `https://la3la3.com/home/api/get-sub-category.php?cate-id=${route.params.cid}`
     axios.get(url)
         .then(
             (rp) => {
+               
               cateData.value = rp.data
               console.log(cateData)
             }
@@ -24,7 +25,11 @@ const getItemByMenu = () => {
         .then(
             (rp) => {
                 console.log("item",itemData.value)
-                itemData.value = rp.data
+                // itemData.value = rp.data
+                rp.data.forEach(el => {
+                    itemData.value.push(el)
+            });
+            isLoading.value = false
             }
         )
 }
@@ -44,6 +49,11 @@ const setImg = (i,img) => {
     console.log(cateData.value[i])
     cateData.value[i].img = img
 }
+const moreData = () => {
+    isLoading.value = true
+    s.value = s.value + e.value
+    getItemByMenu()
+} 
 </script>
 <template>
     <div class="container-fluid mt-3">
@@ -87,6 +97,17 @@ const setImg = (i,img) => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 btn-more">
+                        <div class="get-more" @click="moreData">
+                            Get More
+                        </div>
+                    </div>
+                </div>
+                <div class="popup" v-show="isLoading">
+                    <div class="loading">
                     </div>
                 </div>
             </div>
