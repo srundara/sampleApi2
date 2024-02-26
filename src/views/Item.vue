@@ -40,6 +40,10 @@ const subActiveMenu = (menu) => {
     console.log("asda")
     menu['active-sub'] = !menu['active-sub']
 }
+const setImg = (i,img) => {
+    console.log(cateData.value[i])
+    cateData.value[i].img = img
+}
 </script>
 <template>
     <div class="container-fluid mt-3">
@@ -63,11 +67,25 @@ const subActiveMenu = (menu) => {
                 </div>
                 <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
                     <div class="row">
-                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4" v-for="(item,i) in itemData" :key="i">
-                            <!-- <div class="box"> -->
-                                {{ item.name }}
-                                <!-- {{ data.name }} -->
-                            <!-- </div> -->
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 item-box" v-for="(item,i1) in itemData" :key="i1">
+                            <div class="box">
+                                <div class="img-box">
+                                    <img :src="item.img" alt="">
+                                </div>
+                                <div class="box-text">
+                                    <div class="row">
+                                        <h1>{{ item.name }}</h1>
+                                    </div>
+                                    <div class="row">                            
+                                        <h2>${{ item.price }}</h2>
+                                    </div>
+                                    <ul>
+                                        <li @click="setImg(i1,img)" :class="{'active':item.img==img}" v-for="(img,k) in item.imgList" :key="k">
+                                            <img :src="img" alt="">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
