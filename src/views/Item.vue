@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView, useRoute } from 'vue-router';
-import {ref, onMounted, watchEffect} from 'vue'
+import {ref, onMounted, watchEffect, watch} from 'vue'
 import axios from 'axios';
 const cateData = ref([])
 const route = useRoute()
@@ -8,24 +8,29 @@ const s = ref(0)
 const e = ref(3)
 const itemData = ref([])
 const isLoading = ref(true)
+const cid = ref(0)
 const getSubCategory = () => {
     let url = `https://la3la3.com/home/api/get-sub-category.php?cate-id=${route.params.cid}`
+    
     axios.get(url)
         .then(
             (rp) => {
                
               cateData.value = rp.data
-              console.log(cateData)
+              console.log( rp.data)
             }
         )
 }
 const getItemByMenu = () => {
-    let url = `https://la3la3.com/home/api/get-product.php?cate-id=${route.params.cid}&s=${s.value}&e=${e.value}`
+    if(!route.params.sid){
+        var url = `https://la3la3.com/home/api/get-product.php?cate-id=${route.params.cid}&s=${s.value}&e=${e.value}`
+    }else{
+        var url = `https://la3la3.com/home/api/get-product.php?sub-cate-id2=${route.params.cid}&s=0&e=3`
+    }
+    console.log(url)
     axios.get(url)
         .then(
             (rp) => {
-                console.log("item",itemData.value)
-                // itemData.value = rp.data
                 rp.data.forEach(el => {
                     itemData.value.push(el)
             });
@@ -33,26 +38,31 @@ const getItemByMenu = () => {
             }
         )
 }
-// onMounted( () => {
-//     getSubCategory()
-// })
-
+watch( cid, (newCid,oldCid) => {
+    console.log("oldCid :" , oldCid)
+    console.log("newCid :" , newCid)
+    if(newCid != oldCid){
+        itemData.value = []
+        s.value = 0
+        getItemByMenu()
+    }
+})
 watchEffect ( () => {
     getSubCategory()
-    getItemByMenu()
+    cid.value = route.params.cid
 })
 const subActiveMenu = (menu) => {
-    console.log("asda")
     menu['active-sub'] = !menu['active-sub']
 }
 const setImg = (i,img) => {
-    console.log(cateData.value[i])
     cateData.value[i].img = img
+    console.log(cateData.value[i].img = img)
 }
 const moreData = () => {
     isLoading.value = true
     s.value = s.value + e.value
     getItemByMenu()
+    // cid.value++
 } 
 </script>
 <template>
@@ -69,7 +79,7 @@ const moreData = () => {
                             </a>
                             <ul class="subMenu" v-if="menu['active-sub']">
                                 <li v-for="(item,i) in menu.sub" :key="i">
-                                    <a href="">{{ item.name }}</a>
+                                    <router-link :to="{name:'sub-item', params:{cid:item.category, sid:item.id}}">{{ item.name }}</router-link>
                                 </li>
                             </ul>
                         </li>
@@ -98,11 +108,11 @@ const moreData = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 btn-more">
-                        <div class="get-more" @click="moreData">
-                            Get More
+                    <div class="row mt-4">
+                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 btn-more">
+                            <div class="get-more" @click="moreData">
+                                Get More
+                            </div>
                         </div>
                     </div>
                 </div>

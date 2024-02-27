@@ -5,7 +5,7 @@ h1,h2,p,ul,h3{
  box-sizing: border-box; 
 }
 .top_menu{
-  background-color: rgb(221, 21, 91);
+  background-color: crimson;
   box-shadow: 1px 1px 8px;
 }
 .top_menu .menu_bar ul{
@@ -23,7 +23,7 @@ h1,h2,p,ul,h3{
   color: white;
 }
 .top_menu .menu_bar ul li a.router-link-active{
-  background-color: crimson;
+  background-color: rgb(233, 56, 91);
 }
 .top_menu .menu_bar h1{
   text-align: center;
@@ -232,4 +232,7 @@ object-fit: contain;
 .left-menu ul li .subMenu{
   width: 90%;
   margin-left: 5%;
+}
+.left-menu ul li a.active{
+  background-color: brown;
 }

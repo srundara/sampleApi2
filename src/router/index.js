@@ -20,6 +20,14 @@ const router = createRouter({
       meta:{
         title:"Menu"
       }
+    },
+    {
+      path:'/item/:cid/:sid',
+      name:'sub-item',
+      component:Item,
+      meta:{
+        title:"Menu"
+      }
     }
     
   ]
