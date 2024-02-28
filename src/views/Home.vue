@@ -37,7 +37,7 @@ const moreData = () => {
 <template>
     <div class="container mt-3 mb-3">
         <div class="row">
-            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 item-box" v-for="(item,i1) in data" :key="i1">
+            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 item-box" v-for="(item,i1) in data" :key="i1">
                 <div class="box">
                     <div class="img-box">
                         <img :src="item.img" alt="">
@@ -54,11 +54,16 @@ const moreData = () => {
                                 <img :src="img" alt="">
                             </li>
                         </ul>
-                        <button>
-                            <i class="fa-solid fa-cart-plus"></i>
-                           <span> ADD TO CARD</span>
-                        </button>
                     </div>
+                </div>
+                <div class="row">
+                    <ul class="add-card">
+                    <button>
+                        <i class="fa-solid fa-cart-plus"></i>
+                        <span> ADD TO CARD</span>
+                    </button>
+
+                    </ul>
                 </div>
             </div>
         </div>

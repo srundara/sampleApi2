@@ -9,6 +9,7 @@ const e = ref(3)
 const itemData = ref([])
 const isLoading = ref(true)
 const cid = ref(0)
+const limitImg = 4
 const getSubCategory = () => {
     let url = `https://la3la3.com/home/api/get-sub-category.php?cate-id=${route.params.cid}`
     
@@ -55,8 +56,8 @@ const subActiveMenu = (menu) => {
     menu['active-sub'] = !menu['active-sub']
 }
 const setImg = (i,img) => {
-    cateData.value[i].img = img
-    console.log(cateData.value[i].img = img)
+    itemData.value[i].img = img
+    console.log(itemData.value[i].img = img)
 }
 const moreData = () => {
     isLoading.value = true
