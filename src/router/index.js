@@ -22,7 +22,7 @@ const router = createRouter({
       }
     },
     {
-      path:'/item/:cid/:sid',
+      path:'/item/:cid/sub/:sid',
       name:'sub-item',
       component:Item,
       meta:{

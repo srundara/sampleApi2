@@ -257,3 +257,7 @@ object-fit: contain;
 .left-menu ul li a.active{
   background-color: brown;
 }
+
+.left-menu ul li .subMenu a.router-link-active{
+  background-color: crimson;
+}

@@ -9,7 +9,8 @@ const e = ref(3)
 const itemData = ref([])
 const isLoading = ref(true)
 const cid = ref(0)
-const limitImg = 4
+const sid = ref(0)
+// const limitImg = 4
 const getSubCategory = () => {
     let url = `https://la3la3.com/home/api/get-sub-category.php?cate-id=${route.params.cid}`
     
@@ -18,7 +19,7 @@ const getSubCategory = () => {
             (rp) => {
                
               cateData.value = rp.data
-              console.log( rp.data)
+              console.log( cateData.value)
             }
         )
 }
@@ -26,7 +27,7 @@ const getItemByMenu = () => {
     if(!route.params.sid){
         var url = `https://la3la3.com/home/api/get-product.php?cate-id=${route.params.cid}&s=${s.value}&e=${e.value}`
     }else{
-        var url = `https://la3la3.com/home/api/get-product.php?sub-cate-id2=${route.params.cid}&s=0&e=3`
+        var url = `https://la3la3.com/home/api/get-product.php?sub-cate-id2=${route.params.sid}&s=0&e=3`
     }
     console.log(url)
     axios.get(url)
@@ -39,18 +40,25 @@ const getItemByMenu = () => {
             }
         )
 }
-watch( cid, (newCid,oldCid) => {
+watch( [cid , sid], ([newCid,newSid],[oldCid, oldSid]) => {
     console.log("oldCid :" , oldCid)
     console.log("newCid :" , newCid)
+    console.log("oldSid :" , oldSid)
+    console.log("newSid :" , newSid)
     if(newCid != oldCid){
         itemData.value = []
         s.value = 0
         getItemByMenu()
+        getSubCategory()
     }
 })
 watchEffect ( () => {
-    getSubCategory()
+    // getSubCategory()
     cid.value = route.params.cid
+    if(route.params.sid){
+        sid.value = route.params.sid
+    }
+    console.log(sid.value)
 })
 const subActiveMenu = (menu) => {
     menu['active-sub'] = !menu['active-sub']
@@ -64,7 +72,10 @@ const moreData = () => {
     s.value = s.value + e.value
     getItemByMenu()
     // cid.value++
-} 
+}
+onMounted( ( ) => {
+    getSubCategory()
+}) 
 </script>
 <template>
     <div class="container-fluid mt-3">
@@ -79,8 +90,14 @@ const moreData = () => {
                                 <i class="fa-solid fa-minus" v-else></i>
                             </a>
                             <ul class="subMenu" v-if="menu['active-sub']">
-                                <li v-for="(item,i) in menu.sub" :key="i">
-                                    <router-link :to="{name:'sub-item', params:{cid:item.category, sid:item.id}}">{{ item.name }}</router-link>
+                                <li v-for="(item2,i2) in menu.sub" :key="i2">
+                                    <router-link :to="{
+                                        name:'sub-item', 
+                                        params:{
+                                            cid:item2.category , 
+                                            sid:item2.id}}">
+                                        {{ item2.name }}
+                                    </router-link>
                                 </li>
                             </ul>
                         </li>
