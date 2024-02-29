@@ -27,7 +27,7 @@ const getItemByMenu = () => {
     if(!route.params.sid){
         var url = `https://la3la3.com/home/api/get-product.php?cate-id=${route.params.cid}&s=${s.value}&e=${e.value}`
     }else{
-        var url = `https://la3la3.com/home/api/get-product.php?sub-cate-id2=${route.params.sid}&s=0&e=3`
+        var url = `https://la3la3.com/home/api/get-product.php?sub-cate-id2=${route.params.sid}&s=${s.value}&e=${e.value}`
     }
     console.log(url)
     axios.get(url)
@@ -40,17 +40,21 @@ const getItemByMenu = () => {
             }
         )
 }
-watch( [cid , sid], ([newCid,newSid],[oldCid, oldSid]) => {
+watch( [cid,sid], ([newCid,newSid],[oldCid,oldSid]) => {
     console.log("oldCid :" , oldCid)
     console.log("newCid :" , newCid)
-    console.log("oldSid :" , oldSid)
-    console.log("newSid :" , newSid)
+    // console.log("oldSid :" , oldSid)
+    // console.log("newSid :" , newSid)
     if(newCid != oldCid){
         itemData.value = []
         s.value = 0
-        getItemByMenu()
         getSubCategory()
+    }else if(newSid != oldSid){
+        itemData.value = []
+        s.value = 0
     }
+    getItemByMenu()
+    // getSubCategory()
 })
 watchEffect ( () => {
     // getSubCategory()
