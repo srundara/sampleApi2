@@ -51,7 +51,10 @@ const moreData = () => {
                         <h2>${{ item.price }}</h2>
                         <ul>
                             <li @click="setImg(i1,img)" :class="{'active':item.img==img}" v-for="(img,k) in item.imgList" :key="k">
-                                <img :src="img" alt="">
+                                <div class="" v-if="(img>0,img[1]= 4)">
+                                    <img :src="img" alt="">
+
+                                </div>
                             </li>
                         </ul>
                     </div>

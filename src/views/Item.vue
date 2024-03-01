@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView, useRoute } from 'vue-router';
-import {ref, onMounted, watchEffect, watch} from 'vue'
+import {ref, onMounted, watchEffect, watch, computed} from 'vue'
 import axios from 'axios';
 const cateData = ref([])
 const route = useRoute()
@@ -10,7 +10,7 @@ const itemData = ref([])
 const isLoading = ref(true)
 const cid = ref(0)
 const sid = ref(0)
-// const limitImg = 4
+const limitImg = 4
 const getSubCategory = () => {
     let url = `https://la3la3.com/home/api/get-sub-category.php?cate-id=${route.params.cid}`
     
@@ -69,8 +69,9 @@ const subActiveMenu = (menu) => {
 }
 const setImg = (i,img) => {
     itemData.value[i].img = img
-    console.log(itemData.value[i].img = img)
+    // console.log(limitImg)
 }
+
 const moreData = () => {
     isLoading.value = true
     s.value = s.value + e.value
@@ -80,6 +81,7 @@ const moreData = () => {
 onMounted( ( ) => {
     getSubCategory()
 }) 
+computed
 </script>
 <template>
     <div class="container-fluid mt-3">
@@ -124,6 +126,7 @@ onMounted( ( ) => {
                                     <ul>
                                         <li @click="setImg(i1,img)" :class="{'active':item.img==img}" v-for="(img,k) in item.imgList" :key="k">
                                             <img :src="img" alt="">
+                                            
                                         </li>
                                     </ul>
                                 </div>

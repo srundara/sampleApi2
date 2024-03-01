@@ -31,7 +31,7 @@ onMounted ( () => {
                             <i class="fa-solid fa-house"></i>
                         </RouterLink>
                     </li>
-                    <li v-for="(item,i) in menuCategory" :key="i">
+                    <li class="" v-for="(item,i) in menuCategory" :key="i">
                         <RouterLink :to="{name:'item', params:{cid:item.id}}">{{item.name}}</RouterLink>
                     </li>
                 </ul>
