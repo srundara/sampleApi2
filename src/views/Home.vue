@@ -4,8 +4,9 @@ import {ref,onMounted} from 'vue'
 // import MoreCategory from './MoreCategory.vue';
 const data = ref([])
 const s = ref(0)
-const e = ref(12)
+const e = ref(8)
 const isLoading = ref(false)
+const isPopup = ref(false)
 const getItem = () => {
     let url = `https://la3la3.com/home/api/get-product.php?s=${s.value}&e=${e.value}`
     axios.get(url)
@@ -33,6 +34,7 @@ const moreData = () => {
     s.value = s.value + e.value
     getItem()
 } 
+
 </script>
 <template>
     <div class="container mt-3 mb-3">
@@ -78,5 +80,7 @@ const moreData = () => {
             <div class="loading">
             </div>
         </div>
+
+        
     </div>
 </template>

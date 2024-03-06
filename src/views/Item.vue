@@ -11,6 +11,8 @@ const isLoading = ref(true)
 const cid = ref(0)
 const sid = ref(0)
 const limitImg = 4
+const isPopup = ref(false)
+const name = ref([])
 const getSubCategory = () => {
     let url = `https://la3la3.com/home/api/get-sub-category.php?cate-id=${route.params.cid}`
     
@@ -71,6 +73,10 @@ const setImg = (i,img) => {
     itemData.value[i].img = img
     // console.log(limitImg)
 }
+// const itemImg = (i) => {
+//     itemData.value[i] 
+//     // console.log(limitImg)
+// }
 
 const moreData = () => {
     isLoading.value = true
@@ -80,8 +86,13 @@ const moreData = () => {
 }
 onMounted( ( ) => {
     getSubCategory()
-}) 
-computed
+})
+
+const detail = (i) => {
+    isPopup.value = true
+    name.value = itemData.value[i].name 
+    // console.log(itemData.value[i].name)
+}
 </script>
 <template>
     <div class="container-fluid mt-3">
@@ -113,7 +124,7 @@ computed
                     <div class="row">
                         <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 item-box" v-for="(item,i1) in itemData" :key="i1">
                             <div class="box">
-                                <div class="img-box">
+                                <div class="img-box" @click="detail(i1)">
                                     <img :src="item.img" alt="">
                                 </div>
                                 <div class="box-text">
@@ -124,15 +135,41 @@ computed
                                         <h2>${{ item.price }}</h2>
                                     </div>
                                     <ul>
-                                        <li @click="setImg(i1,img)" :class="{'active':item.img==img}" v-for="(img,k) in item.imgList" :key="k">
+                                        <li @click="setImg(i1,img)" :class="{'active':item.img==img}" v-for="(img,k) in item.imgList.slice(0,4)" :key="k">
                                             <img :src="img" alt="">
                                             
                                         </li>
                                     </ul>
                                 </div>
                             </div>
+                            <div class="popup-detail" v-show="isPopup" >
+                                <div class="form" v-for="(index,i) in itemData" :key="i">
+                                    <div class="row">
+                                        <div class="col-md-12 form-header">
+                                            
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="imgBox">
+
+                                                {{ name}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                        asda
+                                        </div>
+                                    </div>
+                                    <!-- <ul>
+                                        <li>
+
+                                        </li>
+                                    </ul> -->
+                                    <!-- {{ index.name }} -->
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
                     <div class="row mt-4">
                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 btn-more">
                             <div class="get-more" @click="moreData">
@@ -146,6 +183,7 @@ computed
                     </div>
                 </div>
             </div>
+                
         </div>
     </div>
 </template>
