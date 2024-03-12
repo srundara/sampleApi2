@@ -64,7 +64,7 @@ const moreData = () => {
                         <i class="fa-solid fa-cart-plus"></i>
                         <span> ADD TO CARD</span>
                     </button>
-
+                    
                     </ul>
                 </div>
             </div>

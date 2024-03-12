@@ -10,9 +10,9 @@ const itemData = ref([])
 const isLoading = ref(true)
 const cid = ref(0)
 const sid = ref(0)
-const limitImg = 4
 const isPopup = ref(false)
 const name = ref([])
+const isImage = ref([])
 const getSubCategory = () => {
     let url = `https://la3la3.com/home/api/get-sub-category.php?cate-id=${route.params.cid}`
     
@@ -91,6 +91,7 @@ onMounted( ( ) => {
 const detail = (i) => {
     isPopup.value = true
     name.value = itemData.value[i].name 
+    isImage.value = itemData.value[i].img
     // console.log(itemData.value[i].name)
 }
 </script>
@@ -143,7 +144,26 @@ const detail = (i) => {
                                 </div>
                             </div>
                             <div class="popup-detail" v-show="isPopup" >
-                                <div class="form" v-for="(index,i) in itemData" :key="i">
+                                <div class="container">
+                                    <div class="form" >
+                                        <div class="row">
+                                        
+                                                <div class="col-md-12 form-header">
+                                                    <i class="fa-solid fa-xmark" @click.self="isPopup=false"></i>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="imgBox">
+                                                        <img :src="isImage"  alt="">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    {{ name }}
+                                                </div>
+                                                </div>
+                                    </div>    
+                                </div>
+                                <!-- <div class="form" v-for="(index,i) in itemData" :key="i">
                                     <div class="row">
                                         <div class="col-md-12 form-header">
                                             
@@ -159,13 +179,7 @@ const detail = (i) => {
                                         asda
                                         </div>
                                     </div>
-                                    <!-- <ul>
-                                        <li>
-
-                                        </li>
-                                    </ul> -->
-                                    <!-- {{ index.name }} -->
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
